@@ -5,6 +5,8 @@
 axios.get('https://api.github.com/users/azatecas')
   .then(res => {
     console.log(res);
+    const apiInfo = res.data;
+
   })
   .catch(error => {
     console.log(`this is Error from`, error);
@@ -52,7 +54,9 @@ const followersArray = [];
 </div>
 
 */
-function gitcard(obj){
+function gitCard(obj){
+
+  //store html elements to local variables
   let myDiv = document.createElement('div');
   let myImg = document.createElement('img');
   let myDiv2 = document.createElement('div');
@@ -76,6 +80,29 @@ function gitcard(obj){
   myDiv2.append(pFollowers);
   myDiv2.append(pFollowing);
   myDiv2.append(pBio);
+
+  //adding classes to html elements
+  myDiv.classList.add('card');
+  myDiv2.classList.add('card-info');
+  myH3.classList.add('name')
+  pUser.classList.add('username')
+
+  //content from obj being passed to function variables
+  myImg.src = obj.avatar_url;
+  myH3.textContent = obj.name;
+  pUser.textContent = obj.login;
+  pLocation.textContent = obj.location;
+  pProfile.textContent = 'Profile:';
+  profileLink.textContent = obj.html_url;
+  profileLink.href = obj.html_url;
+  pFollowers.textContent = obj.followers;
+  pFollowing.textContent = obj.following;
+  pBio.textContent = `Bio: ${obj.bio}`;
+
+
+
+  return myDiv;
+
   
 }
 
