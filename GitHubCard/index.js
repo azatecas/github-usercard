@@ -39,16 +39,37 @@ const cardsContainer = document.querySelector('.cards');
 */
 
 const followersArray = [];
+
+//adds followers to the empty array above
 axios.get('https://api.github.com/users/azatecas/followers')
   .then(res => {
     res.data.forEach(item => {
       followersArray.push(item.login);
     })
-    console.log(followersArray);
+
+    followersArray.forEach(item => {
+      axios.get(`https://api.github.com/users/${item}`)
+      .then(res => {
+        const followerInfo = res.data;
+        const followersApiCard = gitCard(followerInfo);
+        cardsContainer.append(followersApiCard);
+      })
+    })
+
   })
   .catch(error => {
-    console.log('error on follwers array', error);
-  })
+    console.log('error on foll0wers array', error);
+  });
+
+  // followersArray.forEach(item => {
+  //   axios.get(`https://api.github.com/users/${item}`)
+  //   .then(res => {
+  //     console.log(res)
+  //   })
+  //   console.log(`https://api.github.com/users/${item}`)
+  // })
+
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
