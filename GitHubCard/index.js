@@ -8,7 +8,6 @@ axios.get('https://api.github.com/users/azatecas')
     const apiInfo = res.data;
     const apiCard = gitCard(apiInfo);
     cardsContainer.append(apiCard);
-
   })
   .catch(error => {
     console.log(`FATAL ERROR !!!!!!YOU COMPUTER WILL NOW BLOW UP!!!!!`, error);
@@ -40,13 +39,16 @@ const cardsContainer = document.querySelector('.cards');
 
 const followersArray = [];
 
-//adds followers to the empty array above
+//requests followers information to pragmatically add cards to the array
 axios.get('https://api.github.com/users/azatecas/followers')
+
+  //this pushes followers usernames to followersArray
   .then(res => {
     res.data.forEach(item => {
       followersArray.push(item.login);
     })
 
+    //this creates card for each individual followers
     followersArray.forEach(item => {
       axios.get(`https://api.github.com/users/${item}`)
       .then(res => {
@@ -55,20 +57,12 @@ axios.get('https://api.github.com/users/azatecas/followers')
         cardsContainer.append(followersApiCard);
       })
     })
-
   })
+
+  //if response returns error log this to the console
   .catch(error => {
     console.log('error on foll0wers array', error);
-  });
-
-  // followersArray.forEach(item => {
-  //   axios.get(`https://api.github.com/users/${item}`)
-  //   .then(res => {
-  //     console.log(res)
-  //   })
-  //   console.log(`https://api.github.com/users/${item}`)
-  // })
-
+  }); 
 
 
 /* Step 3: Create a function that accepts a single object as its only argument,
