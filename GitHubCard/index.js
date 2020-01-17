@@ -64,6 +64,19 @@ function gitcard(obj){
   let pFollowers = document.createElement('p');
   let pFollowing = document.createElement('p');
   let pBio = document.createElement('p');
+
+  //appending html elements
+  myDiv.append(myImg);
+  myDiv.append(myDiv2);
+  myDiv2.append(myH3);
+  myDiv2.append(pUser);
+  myDiv2.append(pLocation);
+  myDiv2.append(pProfile);
+  pProfile.append(profileLink);
+  myDiv2.append(pFollowers);
+  myDiv2.append(pFollowing);
+  myDiv2.append(pBio);
+  
 }
 
 /* List of LS Instructors Github username's: 
