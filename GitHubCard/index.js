@@ -6,10 +6,12 @@ axios.get('https://api.github.com/users/azatecas')
   .then(res => {
     console.log(res);
     const apiInfo = res.data;
+    const apiCard = gitCard(apiInfo);
+    cardsContainer.append(apiCard);
 
   })
   .catch(error => {
-    console.log(`this is Error from`, error);
+    console.log(`FATAL ERROR !!!!!!YOU COMPUTER WILL NOW BLOW UP!!!!!`, error);
   })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -22,6 +24,9 @@ axios.get('https://api.github.com/users/azatecas')
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
+
+//selects the container where the gitCard() information will go
+const cardsContainer = document.querySelector('.cards');
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -99,10 +104,8 @@ function gitCard(obj){
   pFollowing.textContent = obj.following;
   pBio.textContent = `Bio: ${obj.bio}`;
 
-
-
+  //RETURNS THE PARENT DIV WITH ALL OTHER ELEMENTS ATTACHED
   return myDiv;
-
   
 }
 
