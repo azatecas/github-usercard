@@ -9,7 +9,7 @@ axios.get('https://api.github.com/users/azatecas')
   .catch(error => {
     console.log(`this is Error from`, error);
   })
-  
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -52,6 +52,19 @@ const followersArray = [];
 </div>
 
 */
+function gitcard(obj){
+  let myDiv = document.createElement('div');
+  let myImg = document.createElement('img');
+  let myDiv2 = document.createElement('div');
+  let myH3 = document.createElement('h3');
+  let pUser = document.createElement('p');
+  let pLocation = document.createElement('p');
+  let pProfile = document.createElement('p');
+  let profileLink = document.createElement('a');
+  let pFollowers = document.createElement('p');
+  let pFollowing = document.createElement('p');
+  let pBio = document.createElement('p');
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
