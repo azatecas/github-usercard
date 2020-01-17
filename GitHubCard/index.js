@@ -4,7 +4,7 @@
 */
 axios.get('https://api.github.com/users/azatecas')
   .then(res => {
-    console.log(res);
+    // console.log(res);
     const apiInfo = res.data;
     const apiCard = gitCard(apiInfo);
     cardsContainer.append(apiCard);
@@ -39,6 +39,16 @@ const cardsContainer = document.querySelector('.cards');
 */
 
 const followersArray = [];
+axios.get('https://api.github.com/users/azatecas/followers')
+  .then(res => {
+    res.data.forEach(item => {
+      followersArray.push(item.login);
+    })
+    console.log(followersArray);
+  })
+  .catch(error => {
+    console.log('error on follwers array', error);
+  })
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -59,6 +69,8 @@ const followersArray = [];
 </div>
 
 */
+
+//Creates user card from Github API
 function gitCard(obj){
 
   //store html elements to local variables
@@ -74,6 +86,9 @@ function gitCard(obj){
   let pFollowing = document.createElement('p');
   let pBio = document.createElement('p');
 
+  let link = document.createTextNode(`${obj.html_url}`);
+  profileLink.append(link);
+
   //appending html elements
   myDiv.append(myImg);
   myDiv.append(myDiv2);
@@ -81,6 +96,7 @@ function gitCard(obj){
   myDiv2.append(pUser);
   myDiv2.append(pLocation);
   myDiv2.append(pProfile);
+
   pProfile.append(profileLink);
   myDiv2.append(pFollowers);
   myDiv2.append(pFollowing);
@@ -97,16 +113,22 @@ function gitCard(obj){
   myH3.textContent = obj.name;
   pUser.textContent = obj.login;
   pLocation.textContent = obj.location;
-  pProfile.textContent = 'Profile:';
-  profileLink.textContent = obj.html_url;
+
+  profileLink.title = obj.html_url;
   profileLink.href = obj.html_url;
-  pFollowers.textContent = obj.followers;
-  pFollowing.textContent = obj.following;
+  pProfile.textContent = `Profile: ${profileLink.href}`;
+
+ 
+
+  // profileLink.href = obj.html_url;
+
+
+  pFollowers.textContent = `${obj.followers} followers`;
+  pFollowing.textContent = `${obj.following} following`;
   pBio.textContent = `Bio: ${obj.bio}`;
 
   //RETURNS THE PARENT DIV WITH ALL OTHER ELEMENTS ATTACHED
-  return myDiv;
-  
+  return myDiv;  
 }
 
 /* List of LS Instructors Github username's: 
